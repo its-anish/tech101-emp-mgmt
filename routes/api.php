@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,15 +25,26 @@ Route::prefix('v1')
     ->group(function () {
         Route::get(
             'companies',
-            function () {
-                return Company::get();
-            }
+            [ApiController::class, "getAllCompany"]
         );
 
         Route::get(
-            '{company_id}/departments',
-            function () {
-                return Company::get();
-            }
+            'departments/{company_id}',
+            [ApiController::class, "getCompanyDepartments"]
+        );
+
+        Route::get(
+            'employees/{company_id}',
+            [ApiController::class, "getCompanyEmployees"]
+        );
+
+        Route::get(
+            'employees/{company_id}/{department_id}',
+            [ApiController::class, "getCompanyDeparmentEmployees"]
+        );
+
+        Route::get(
+            'employees',
+            [ApiController::class, "getEmployees"]
         );
     });

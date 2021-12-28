@@ -29,12 +29,10 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function create()
+    public function create($department_id)
     {
-        return view('employee/employee-form', [
-            'companies' => $this->companies,
-            'departments' => $this->departments,
-        ]);
+        $_department = Department::findOrFail($department_id);
+        return view('employee/employee-form', compact('_department'));
     }
 
     public function store(Request $request)
@@ -45,7 +43,6 @@ class EmployeeController extends Controller
             "employee_email" => "required",
             "employee_contact" => "required",
             "employee_company_id" => "required",
-            "employee_department_id" => "required",
         ]);
 
         $employee = new Employee();
@@ -53,12 +50,15 @@ class EmployeeController extends Controller
         $employee->email = $request->employee_email;
         $employee->contact = $request->employee_contact;
         $employee->company_id = $request->employee_company_id;
-        $employee->department_id = $request->employee_department_id;
 
         $employee->save();
+
+        $_departments = $request->input('employee_department');
+        $employee->departments()->sync($_departments);
+
         $request->session()->flash("success", "Employee Created Successfully");
 
-        return redirect()->to("employees");
+        return redirect()->route('company-department', [$request->employee_department_id]);
     }
 
     public function show(Request $employee)

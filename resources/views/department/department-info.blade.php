@@ -1,10 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('List of Company') }}
+            {{ $department->company->name }} -> {{ $department->name }}
         </h2>
-        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('company-create') }}">
-            {{ __('Create New Company') }}
+        <a class="underline text-sm text-gray-600 hover:text-gray-900"
+            href="{{ route('employee-create', [$department->id]) }}">
+            {{ __('Add Employee') }}
         </a>
     </x-slot>
 
@@ -14,42 +15,43 @@
             @if (session()->has('success'))
                 <h3>{{ session('success') }}</h3>
             @endif
-            {{ count($companies) }}
-            @if (count($companies) > 1)
-                Companies
+
+            {{ count($department->employees) }}
+            @if (count($department->employees) > 1)
+                Employees
             @else
-                Company
+                Employee
             @endif
 
-            @if (count($companies) > 0)
+            @if (count($department->employees) > 0)
+
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Address</th>
+                                <th>Email</th>
                                 <th>Contact</th>
-                                <th>No. of Employees</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($companies as $company)
+                            @foreach ($department->employees as $employee)
                                 <tr scope="row">
-                                    <th>{{ $company->name }}</th>
-                                    <th>{{ $company->location }}</th>
-                                    <th>{{ $company->contact }}</th>
-                                    <th>{{ count($company->employees) }}</th>
-                                    <th>
-                                        <a class="underline text-sm text-gray-600 hover:text-gray-900"
-                                            href="{{ route('company-show', $company->id) }}">
+                                    <td>{{ $employee->name }}</td>
+                                    <td>{{ $employee->email }}</td>
+                                    <td>{{ $employee->contact }}</td>
+                                    <td>
+                                        {{-- <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                                            href="{{ route('company-department', [$company->id, $department->id]) }}">
                                             {{ __('Show') }}
-                                        </a>
-                                    </th>
+                                        </a> --}}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
                 </div>
             @endif
         </div>

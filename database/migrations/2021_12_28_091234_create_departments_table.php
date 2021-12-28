@@ -16,10 +16,8 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('company_id');
+            $table->foreignId('company_id')->constrained();
             $table->timestamps();
-
-            $table->index('company_id');
         });
     }
 

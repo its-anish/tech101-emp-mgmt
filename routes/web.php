@@ -30,13 +30,11 @@ Route::middleware(['auth'])
         Route::get('/company-create', [CompanyController::class, 'create'])->name('company-create');
         Route::post('/company-store', [CompanyController::class, 'store'])->name('company-store');
         Route::get('/company/{company_id}', [CompanyController::class, 'show'])->name('company-show');
+        Route::get('/department/{department_id}', [DepartmentController::class, 'show'])->name('company-department');
 
-        Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
-        Route::get('/department-create', [DepartmentController::class, 'create'])->name('department-create');
         Route::post('/department-store', [DepartmentController::class, 'store'])->name('department-store');
 
-        Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
-        Route::get('/employee-create', [EmployeeController::class, 'create'])->name('employee-create');
+        Route::get('/company/{department_id}/add-employee', [EmployeeController::class, 'create'])->name('employee-create');
         Route::post('/employee-store', [EmployeeController::class, 'store'])->name('employee-store');
     });
 

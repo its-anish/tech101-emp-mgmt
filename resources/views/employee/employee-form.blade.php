@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('New Company') }}
+            {{ $_department->company->name }} -> {{ $_department->name }} -> {{ __('Add Employee') }}
         </h2>
     </x-slot>
 
@@ -36,27 +36,24 @@
                             :value="old('employee_contact')" required autofocus />
                     </div>
 
-                    <!-- Employee Company ID -->
                     <div>
-                        <x-label for="employee_company_id" :value="__('Select Company')" />
+                        <x-label for="employee_departments" :value="__('Departments')" />
 
-                        <select name="employee_company_id" id="employee_company_id">
-                            @foreach ($companies as $company)
-                                <option value="{{ $company->id }}">{{ $company->name }}</option>
-                            @endforeach
-                        </select>
+                        @foreach ($_department->company->departments as $department)
+                            <input type="checkbox" name="employee_department[]" id="employee_department[]"
+                                value="{{ $department->id }}"
+                                {{ $_department->id == $department->id ? 'checked' : '' }}>
+                            {{ $department->name }}
+                        @endforeach
                     </div>
 
-                    <!-- Employee Department ID -->
-                    <div>
-                        <x-label for="employee_department_id" :value="__('Select Designation')" />
 
-                        <select name="employee_department_id" id="employee_department_id">
-                            @foreach ($departments as $department)
-                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <x-input id="employee_company_id" type="hidden" name="employee_company_id"
+                        value="{{ $_department->company->id }}" />
+
+
+                    <x-input id="employee_department_id" type="hidden" name="employee_department_id"
+                        value="{{ $_department->id }}" />
 
                     <div class="flex items-center justify-end mt-4">
                         <x-button class="ml-3">
