@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "fd53dbfa-c6dc-466d-8fac-475d3e907d3e",
+		"name": "Tech101",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Companies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}companies",
+					"host": [
+						"{{base_url}}companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Company Departments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}departments/:company_id",
+					"host": [
+						"{{base_url}}departments"
+					],
+					"path": [
+						":company_id"
+					],
+					"variable": [
+						{
+							"key": "company_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Company Employee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}employees/:company_id",
+					"host": [
+						"{{base_url}}employees"
+					],
+					"path": [
+						":company_id"
+					],
+					"variable": [
+						{
+							"key": "company_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Company Department Employee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}employees/:company_id/:department_id",
+					"host": [
+						"{{base_url}}employees"
+					],
+					"path": [
+						":company_id",
+						":department_id"
+					],
+					"variable": [
+						{
+							"key": "company_id",
+							"value": "1"
+						},
+						{
+							"key": "department_id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}employees",
+					"host": [
+						"{{base_url}}employees"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://local.tech101.com/api/v1/"
+		}
+	]
+}
