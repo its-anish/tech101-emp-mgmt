@@ -7,18 +7,6 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    public function index()
-    {
-        $departments = Department::get();
-        return view('department/departments', compact('departments'));
-    }
-
-    public function create()
-    {
-
-        return view('department/department-form');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -40,21 +28,5 @@ class DepartmentController extends Controller
     {
         $department = Department::findOrFail($department_id);
         return view('department/department-info', compact('department'));
-    }
-
-    public function edit(Department $department)
-    {
-        //
-    }
-
-
-    public function update(Request $request, Department $department)
-    {
-        //
-    }
-
-    public function destroy(Department $Department)
-    {
-        //
     }
 }

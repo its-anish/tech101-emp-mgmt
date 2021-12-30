@@ -18,7 +18,7 @@
                         <x-label for="company_name" :value="__('Company Name')" />
 
                         <x-input id="company_name" class="block mt-1 w-full" type="text" name="company_name"
-                            :value="old('company_name')" required autofocus />
+                            :value="old('company_name')" autofocus />
                     </div>
 
                     <!-- Company Location -->
@@ -26,7 +26,7 @@
                         <x-label for="company_location" :value="__('Location')" />
 
                         <x-input id="company_location" class="block mt-1 w-full" type="text" name="company_location"
-                            :value="old('company_location')" required autofocus />
+                            :value="old('company_location')" />
                     </div>
 
                     <!-- Company Contact -->
@@ -34,7 +34,7 @@
                         <x-label for="company_contact" :value="__('Contact')" />
 
                         <x-input id="company_contact" class="block mt-1 w-full" type="text" name="company_contact"
-                            :value="old('company_contact')" required autofocus />
+                            :value="old('company_contact')" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
