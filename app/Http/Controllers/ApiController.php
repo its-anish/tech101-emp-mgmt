@@ -8,6 +8,7 @@ use App\Models\Employee;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -62,9 +63,11 @@ class ApiController extends Controller
     public function getCompanyDeparmentEmployees($company_id, $department_id)
     {
         try {
-            $employees = Employee::where("company_id", $company_id)
-                ->where("department_id", $department_id)
-                ->get();
+            $department = Department::where("company_id", $company_id)
+                ->where("id", $department_id)
+                ->first();
+
+            $employees = $department->employees;
 
             $response = $this->createApiResponse(false, "", $employees);
             return response()
