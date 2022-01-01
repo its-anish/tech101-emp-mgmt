@@ -8,9 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
 
-                <form method="POST" action="{{ route('company-store') }}">
+                <div id="error-message">
+                </div>
+
+                <form id="create-company-form" method="POST" action="{{ route('company-store') }}">
                     @csrf
 
                     <!-- Company Name -->
@@ -46,4 +49,44 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#create-company-form").submit(function(e) {
+                e.preventDefault();
+                var url = "{{ route('company-store') }}";
+                var data = $(this).serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function(response) {
+                        window.location.href = "{{ route('companies') }}";
+                    },
+                    error: function(response) {
+                        var jsonError = response.responseJSON;
+                        var errorMsg = '<div class="font-medium text-red-600">' + jsonError
+                            .message +
+                            '</div><ul class="mt-3 list-disc list-inside text-sm text-red-600">';
+
+                        if (jsonError.errors != undefined) {
+                            for (var key in jsonError.errors) {
+                                var errors = jsonError.errors[key];
+                                errors.forEach(error => {
+                                    errorMsg +=
+                                        "<li>" + error + "</li>";
+                                });
+                            }
+                        }
+
+                        errorMsg += "</ul>";
+
+                        $("#error-message").html("").html(errorMsg);
+
+                    },
+                });
+            });
+        });
+    </script>
 </x-app-layout>
